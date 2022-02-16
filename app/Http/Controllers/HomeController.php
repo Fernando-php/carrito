@@ -3,34 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Producto;
 
 class HomeController extends Controller
 {
     public function index()
     {
         session_start();
-        if (!isset($_SESSION['productos'])) {
-            $file = fopen("productos.txt", "r");
-            while (!feof($file)) {
-                $linea = fgets($file);
-                if ($linea != "") {
-                    $prod = explode('-', $linea);
-                    $_SESSION['productos'][$prod[0]] = [$prod[1], $prod[2], $prod[3]];
-                }
-            }
-            fclose($file);
+        if (!isset($_SESSION['enCesta'])) {
             if (isset($_COOKIE['cesta'])) {
                 $_SESSION['enCesta'] = unserialize($_COOKIE['cesta']);
                 $_SESSION['total']    = $_COOKIE['total'];
                 $_SESSION['cantidad'] = $_COOKIE['cantidad'];
+            }else{
+                $_SESSION['enCesta'] = [];
+                $_SESSION['total'] = 0;
+                $_SESSION['cantidad'] = 0;
             }
         }
-        if (!isset($_SESSION['enCesta'])) {
-            $_SESSION['enCesta'] = [];
-            $_SESSION['total'] = 0;
-            $_SESSION['cantidad'] = 0;
-        }
-        return view('index');
+        $productos= Producto::all();
+        // return $productos;
+        return view('index', compact('productos'));
     }
     public function detalle($producto)
     {

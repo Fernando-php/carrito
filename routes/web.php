@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('inicio');
-Route::get('meteCarro/{producto}', [HomeController::class,'meteCarro'])->name('metecarro');
+Route::post('meteCarro/{producto}', [HomeController::class,'meteCarro'])->name('metecarro');
 Route::get('quitaCarro/{producto}', [HomeController::class,'quitaCarro'])->name('quitacarro');
 Route::get('detalle/{producto}', [HomeController::class,'detalle'])->name('detalle');
 Route::get('cesta', [HomeController::class,'cesta'])->name('cesta');
