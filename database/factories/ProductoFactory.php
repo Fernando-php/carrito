@@ -17,7 +17,7 @@ class ProductoFactory extends Factory
             'nombre'=>$this->faker->name, //nombre aleatorio en inglés
             'precio'=>$this->faker->randomNumber(3,false), //número con 3 digitos máximo
             'detalle'=>$this->faker->paragraph(), //Texto con varias líneas
-            'imagen'=>$this->faker->name.$this->faker->randomElement(['.jpg','.png','.gif']) //nombre aleatorio en inglés mas extensión
+            'imagen'=>'producto.png' //nombre aleatorio en inglés mas extensión
         ];
     }
 }

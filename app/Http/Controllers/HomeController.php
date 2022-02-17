@@ -25,36 +25,37 @@ class HomeController extends Controller
         // return $productos;
         return view('index', compact('productos'));
     }
-    public function detalle($producto)
+    public function detalle(Producto $producto)
     {
         session_start();
         return view('detalle',compact('producto'));
     }
-    public function meteCarro($producto)
+    public function meteCarro($id)
     {
         session_start();
-            if (array_key_exists($producto, $_SESSION['enCesta'])) {
-                $_SESSION['enCesta'][$producto]++;
+            if (array_key_exists($id, $_SESSION['enCesta'])) {
+                $_SESSION['enCesta'][$id]++;
             } else {
-                $_SESSION['enCesta'][$producto] = 1;
+                $_SESSION['enCesta'][$id] = 1;
             }
-
+            $producto= Producto::find($id);
             $_SESSION['cantidad']++;
-            $_SESSION['total'] += $_SESSION['productos'][$producto][0];
+            $_SESSION['total'] += $producto->precio;
             setcookie('cantidad', $_SESSION['cantidad'], time() + 24 * 3600);
             setcookie('total', $_SESSION['total'], time() + 24 * 3600);
             setcookie('cesta', serialize($_SESSION['enCesta']), time() + 24 * 3600);
             return redirect()->route('inicio'); 
             //return redirect('/'); //redirección sin usar el nombre de la ruta
     }
-    public function quitaCarro($producto)
+    public function quitaCarro($id)
     {
         session_start();
-            $_SESSION['enCesta'][$producto]--;
+            $_SESSION['enCesta'][$id]--;
             $_SESSION['cantidad']--;
-            $_SESSION['total'] -= $_SESSION['productos'][$producto][0];
-            if ( $_SESSION['enCesta'][$producto]==0) {
-                unset($_SESSION['enCesta'][$producto]);
+            $producto=Producto::find($id);
+            $_SESSION['total'] -= $producto->precio;
+            if ( $_SESSION['enCesta'][$id]==0) {
+                unset($_SESSION['enCesta'][$id]);
             }
             setcookie('cantidad', $_SESSION['cantidad'], time() + 24 * 3600);
             setcookie('total', $_SESSION['total'], time() + 24 * 3600);

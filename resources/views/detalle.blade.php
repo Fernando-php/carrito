@@ -1,14 +1,15 @@
 @extends('layouts.plantilla')
 
-@section('title', 'Detalle '.$producto)
+@section('title', 'Detalle '.$producto->nombre)
 
 @section('content')    
-        <img style="width:500px" src="../imagen/{{$_SESSION['productos'][$producto][2]}}" />
-        <h1>{{$producto}}</h1>
-        <strong>Precio: </strong>{{$_SESSION['productos'][$producto][0]}}
-        <br><strong>Detalle: </strong>{{$_SESSION['productos'][$producto][1]}}
-        <form action="../meteCarro/<?= $producto ?>" method="get">
+        <img style="width:500px" src="{{asset('imagen/'.$producto->imagen)}}" />
+        <h1>{{$producto->nombre}}</h1>
+        <strong>Precio: </strong>{{$producto->precio}}
+        <br><strong>Detalle: </strong>{{$producto->detalle}}
+        <form action="{{route('metecarro',$producto)}}" method="post">
+            @csrf
             <input type="submit" value="Comprar">
         </form>
-        <h3><a href="../">VOLVER</a></h3>
+        <h3><a href="{{route('inicio')}}">VOLVER</a></h3>
 @endsection
