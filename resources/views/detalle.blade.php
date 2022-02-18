@@ -11,5 +11,5 @@
             @csrf
             <input type="submit" value="Comprar">
         </form>
-        <h3><a href="{{route('inicio')}}">VOLVER</a></h3>
+        <h3><a class="a" href="{{route('inicio')}}">VOLVER</a></h3>
 @endsection

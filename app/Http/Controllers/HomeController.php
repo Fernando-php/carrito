@@ -21,7 +21,7 @@ class HomeController extends Controller
                 $_SESSION['cantidad'] = 0;
             }
         }
-        $productos= Producto::all();
+        $productos= Producto::paginate(5);
         // return $productos;
         return view('index', compact('productos'));
     }
@@ -44,8 +44,9 @@ class HomeController extends Controller
             setcookie('cantidad', $_SESSION['cantidad'], time() + 24 * 3600);
             setcookie('total', $_SESSION['total'], time() + 24 * 3600);
             setcookie('cesta', serialize($_SESSION['enCesta']), time() + 24 * 3600);
-            return redirect()->route('inicio'); 
+            // return redirect()->route('inicio'); 
             //return redirect('/'); //redirección sin usar el nombre de la ruta
+            return redirect()->back();
     }
     public function quitaCarro($id)
     {

@@ -6,24 +6,33 @@
 @section('title', 'Contenido Cesta')
 
 @section('content')
-<table border = "1"><tr><th colspan="4"><h3>PRODUCTOS EN TU CESTA</h3></th></tr>
+<table><tr><th colspan="5"><h3>PRODUCTOS EN TU CESTA</h3></th></tr>
 @php
         foreach ($_SESSION['enCesta'] as $id => $cantidad) {
             $producto= Producto::find($id);
 @endphp
-        <tr><td>{{$id}}</td>
+        <tr><td>{{$producto->nombre}}</td>
             <td>{{$cantidad}}</td>
             <td><img style="width:100px" src="{{asset('imagen/producto.png')}}"/>
-                <br>{{$producto->nombre}}
-                <br>{{$productos->precio}} euros</td>
-            <td><form action="{{route('quitacarro',$producto)}}" method="get">
-                <input type="submit" value="Quitar uno">
-            </form></td></tr>
+                <br>{{$producto->precio}} euros</td>
+            <td>    
+                <form action="{{route('metecarro',$producto)}}" method="post">
+                    @csrf
+                    <input type="submit" value="Añadir 1">
+                </form>
+            </td>
+            <td>
+                <form action="{{route('quitacarro',$producto)}}" method="post">
+                    @csrf
+                    <input type="submit" value="Quitar 1">
+                </form>
+            </td>
+        </tr>
 @php
         }  
 @endphp
     
 <tr><td>Total</td>
     <td>{{$_SESSION['cantidad']}}</td>
-    <td>{{$_SESSION['total']}}</td><td><a href="./">VOLVER</a></td></tr></table>
+    <td>{{$_SESSION['total']}}</td><td><a class="a" href="./">VOLVER</a></td></tr></table>
 @endsection
