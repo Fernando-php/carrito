@@ -20,5 +20,6 @@
 </tr>
 @endforeach
 </table>
+<br>
 {{$productos->links()}}
 @endsection

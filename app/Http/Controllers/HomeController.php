@@ -7,6 +7,11 @@ use App\Models\Producto;
 
 class HomeController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth'); //asociado a todos los métodos (sesión iniciada)
+        // $this->middleware('log')->only('index'); //asociado solo al método index
+        // $this->middleware('subscribed')->except('store'); // a todos menos store
+    }
     public function index()
     {
         session_start();

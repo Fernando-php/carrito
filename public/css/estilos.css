@@ -4,6 +4,7 @@ root {
 
 .contenedor{
   margin: auto;
+  margin-top: 100px;
   width: 800px;
   padding-left: 20px;
   padding-right: 20px;
@@ -12,9 +13,13 @@ root {
   border-top: 0px;
   border-bottom : 0px;
 }
-.nuevo{
-  position: absolute;
-  left: 867px;
+.usuario{
+  float: right;
+  margin-right: 10px;
+  margin-top: 0px;
+}
+hr{
+  clear: both;
 }
 
 body {
